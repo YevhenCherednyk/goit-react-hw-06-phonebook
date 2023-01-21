@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { List } from './ContactList.styled';
-
+import { selectFilteredContacts } from 'redux/selectors';
 import ContactItem from 'components/ContactItem';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts);
+
   return (
     <List>
-      {contacts.map(({ id, name, number }) => (
-        <ContactItem
-          key={id}
-          contact={{ id, name, number }}
-          onDeleteContact={onDeleteContact}
-        />
+      {filteredContacts.map(({ id, name, number }) => (
+        <ContactItem key={id} contact={{ id, name, number }} />
       ))}
     </List>
   );

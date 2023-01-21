@@ -1,19 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setQuery } from 'redux/filterSlice';
 import { Label, Span, Input } from './Filter.styled';
 
-const Filter = ({ value, onChange }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const query = useSelector(state => state.filter.query);
+
+  const onChange = query => {
+    dispatch(setQuery(query));
+  };
+
   return (
     <Label>
       <Span>Find contacts by name</Span>
-      <Input type="text" value={value} onChange={onChange} />
+      <Input
+        type="text"
+        value={query}
+        onChange={evt => onChange(evt.target.value)}
+      />
     </Label>
   );
-};
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
