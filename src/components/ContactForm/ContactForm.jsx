@@ -3,9 +3,10 @@ import { addContact } from 'redux/contactsSlice';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { Form, Label, Span, Input, Button } from './ContactForm.styled';
+import { selectContacts } from 'redux/selectors';
 
 export default function ContactForm() {
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = evt => {
